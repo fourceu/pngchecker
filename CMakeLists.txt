@@ -40,7 +40,7 @@ IF (UNIX)
     set(CMAKE_CXX_FLAGS "-Wextra -Wall -Werror -Winit-self -Wold-style-cast -Woverloaded-virtual -Wuninitialized -Wmissing-declarations -pedantic -std=c++11 -DBOOST_LOG_DYN_LINK")
 ENDIF (UNIX)
 
-FIND_PACKAGE(Boost 1.54 COMPONENTS log REQUIRED)
+FIND_PACKAGE(Boost REQUIRED)
 
 set(${PROJECT_NAME}_LIBS ${Boost_LIBRARIES})
 

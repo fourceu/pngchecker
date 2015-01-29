@@ -21,14 +21,8 @@
  */
 
 #include <gmock/gmock.h>
-#include <boost/log/core.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/trivial.hpp>
 
 int main(int argc, char **argv) {
-  boost::log::core::get()->set_filter(
-      boost::log::trivial::severity >= boost::log::trivial::info);
-  
   ::testing::InitGoogleMock(&argc, argv);
   return RUN_ALL_TESTS();
 }
