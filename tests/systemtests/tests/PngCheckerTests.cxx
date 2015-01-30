@@ -34,3 +34,20 @@ TEST(PngCheckerTests, readRealPng) {
 
   ifs.close();
 }
+
+TEST(PngCheckerTests, readRealPngVector) {
+  std::ifstream ifs(fourc::graphics::pngchecker::testing::EXAMPLE_PNG_FILE_NAME);
+  ifs.seekg(0, std::ios::end);
+  std::streampos length(ifs.tellg());
+  std::vector<char> data;
+  if (length) {
+    ifs.seekg(0, std::ios::beg);
+      data.resize(static_cast<std::size_t>(length));
+      ifs.read(&data.front(), static_cast<std::size_t>(length));
+  }
+
+  ifs.close();
+
+  PngChecker pngChecker;
+  pngChecker.verifyPng(data);
+}

@@ -85,7 +85,7 @@ void PngChecker::verifyPng(const std::vector<char>& data) {
   std::istream is(&buf);
 
   // Write data to buffer
-  os << data.data();
+  os.write(data.data(), data.size());
 
   verifyPng(is);
 }
