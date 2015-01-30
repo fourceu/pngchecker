@@ -1,5 +1,5 @@
 # pngchecker
-Png data validation library
+C++ png data validation library
 
 This project is designed to give easy access to the following features:
 * Programatically verify the validity of png headers and data blocks
