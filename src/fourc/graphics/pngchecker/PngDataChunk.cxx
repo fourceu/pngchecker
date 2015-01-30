@@ -43,7 +43,7 @@ PngDataChunk::PngDataChunk(DataType& data) {
   type = getChunkType(body);
 }
 
-size_t PngDataChunk::getLength() const {
+uint32_t PngDataChunk::getLength() const {
   return length;
 }
 
@@ -60,7 +60,7 @@ uint32_t PngDataChunk::getChunkLength(DataType& data) const {
     throw PngCheckerException("Truncated chunk length field");
   }
 
-  // Correct enidanness
+  // Correct endianness
   reverseBytesInPlace(length);
 
   return length;

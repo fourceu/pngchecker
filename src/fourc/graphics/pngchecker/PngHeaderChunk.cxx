@@ -45,7 +45,7 @@ PngHeaderChunk::PngHeaderChunk(DataType& data) {
   }
 }
 
-size_t PngHeaderChunk::getLength() const {
+uint32_t PngHeaderChunk::getLength() const {
   return HEADER_LENGTH;
 }
 

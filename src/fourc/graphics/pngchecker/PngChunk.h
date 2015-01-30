@@ -19,7 +19,7 @@
 #ifndef SRC_FOURC_GRAPHICS_PNGCHECKER_PNGCHUNK_H_
 #define SRC_FOURC_GRAPHICS_PNGCHECKER_PNGCHUNK_H_
 
-#include <cstddef>
+#include <cstdint>
 
 namespace fourc {
 namespace graphics {
@@ -30,7 +30,7 @@ public:
   PngChunk() = default;
   virtual ~PngChunk() = default;
 
-  virtual size_t getLength() const = 0;
+  virtual uint32_t getLength() const = 0;
 };
 
 }}} // Namespaces

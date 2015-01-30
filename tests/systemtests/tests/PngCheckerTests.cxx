@@ -21,10 +21,15 @@
 #include "../SystemTestConstants.h"
 
 #include <fourc/graphics/pngchecker/PngChecker.h>
+#include <fourc/graphics/pngchecker/PngCheckerException.h>
 
 #include <fstream>
 
 using namespace fourc::graphics::pngchecker;
+
+const size_t HEADER_LENGTH = 8;
+const unsigned char VALID_PNG_HEADER[HEADER_LENGTH]{0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A};
+const unsigned char TRUNCATED_PNG_HEADER[HEADER_LENGTH]{0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A};
 
 TEST(PngCheckerTests, readRealPng) {
   std::ifstream ifs(fourc::graphics::pngchecker::testing::EXAMPLE_PNG_FILE_NAME);
@@ -50,4 +55,30 @@ TEST(PngCheckerTests, readRealPngVector) {
 
   PngChecker pngChecker;
   pngChecker.verifyPng(data);
+}
+
+TEST(PngCheckerTests, readEmptyVector) {
+  std::vector<char> data;
+
+  PngChecker pngChecker;
+  try {
+    pngChecker.verifyPng(data);
+
+    FAIL() << "Expected exception not thrown";
+  } catch (PngCheckerException& expected) {
+
+  }
+}
+
+TEST(PngCheckerTests, readTruncatedHeaderVector) {
+  std::vector<char> data(TRUNCATED_PNG_HEADER, TRUNCATED_PNG_HEADER + HEADER_LENGTH);
+
+  PngChecker pngChecker;
+  try {
+    pngChecker.verifyPng(data);
+
+    FAIL() << "Expected exception not thrown";
+  } catch (PngCheckerException& expected) {
+
+  }
 }

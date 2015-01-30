@@ -37,11 +37,11 @@ public:
   PngDataChunk(DataType& data);
   virtual ~PngDataChunk() = default;
 
-  virtual size_t getLength() const;
+  virtual uint32_t getLength() const;
   virtual std::string getType() const;
 
 protected:
-  size_t length;
+  uint32_t length;
   std::string type;
 
   uint32_t getChunkLength(DataType& data) const;

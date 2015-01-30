@@ -39,13 +39,13 @@ namespace pngchecker {
  */
 class PngHeaderChunk : public PngChunk {
 public:
-  static const size_t HEADER_LENGTH = 8;
+  static const uint32_t HEADER_LENGTH = 8;
   static constexpr unsigned char VALID_PNG_HEADER[HEADER_LENGTH]{0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A};
 
   PngHeaderChunk(DataType& data);
   virtual ~PngHeaderChunk() = default;
 
-  virtual size_t getLength() const;
+  virtual uint32_t getLength() const;
 };
 
 }}} // Namespaces

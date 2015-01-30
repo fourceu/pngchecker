@@ -35,13 +35,14 @@ template<typename T> void reverseBytesInPlace(T& value) {
 }
 
 template<typename T> T reverseBytesValue(const T& value) {
-  T reversed = value; // Take a copy so we don't corrupt the original
+  T reversed = value; // Take a copy so we don't pervert the original
 
   reverseBytesInPlace(reversed);
 
   return reversed;
 }
 
+// Convenience method to construct (hopefully) valid png chunks
 void writePngChunk(std::ostream& os, const std::string& type, DataType::char_type* data, uint32_t data_len);
 void writePngChunk(std::ostream& os, const std::string& type, DataType::char_type* data, uint32_t data_len) {
     uint32_t length_reversed = reverseBytesValue(data_len);
@@ -69,6 +70,7 @@ TEST(PngDataChunkTests, readTrivialBlock) {
   char data[3]{0x00, 0x00, 0x01};
   writePngChunk(os, "IHDR", data, 3);
 
+  // This would throw an exception if anything went wrong - no other test verification required.
   PngDataChunk chunk(is);
 }
 
@@ -78,13 +80,60 @@ TEST(PngDataChunkTests, readIHDRBlock) {
   std::ostream os(&buf);
   std::istream is(&buf);
 
-  unsigned char data[13]{
+  const uint32_t length = 13;
+
+  unsigned char data[length]{
     0x00, 0x00, 0x00, 0xE9, // width
     0x00, 0x00, 0x00, 0x58, // height
     0x08, 0x02, 0x00, 0x00, // bit depth
     0x00                    // colour type
   };
-  writePngChunk(os, "IHDR", reinterpret_cast<char*>(data), 13);
+  writePngChunk(os, "IHDR", reinterpret_cast<char*>(data), length);
 
+  // This would throw an exception if anything went wrong - no other test verification required.
   PngDataChunk chunk(is);
 }
+
+TEST(PngDataChunkTests, getLength) {
+
+  std::stringbuf buf;
+  std::ostream os(&buf);
+  std::istream is(&buf);
+
+  const uint32_t length = 13;
+
+  unsigned char data[length]{
+    0x00, 0x00, 0x00, 0xE9, // width
+    0x00, 0x00, 0x00, 0x58, // height
+    0x08, 0x02, 0x00, 0x00, // bit depth
+    0x00                    // colour type
+  };
+  writePngChunk(os, "IHDR", reinterpret_cast<char*>(data), length);
+
+  PngDataChunk chunk(is);
+
+  EXPECT_EQ(length, chunk.getLength());
+}
+
+TEST(PngDataChunkTests, getType) {
+
+  std::stringbuf buf;
+  std::ostream os(&buf);
+  std::istream is(&buf);
+
+  const uint32_t length = 13;
+  std::string type = "IHDR";
+
+  unsigned char data[length]{
+    0x00, 0x00, 0x00, 0xE9, // width
+    0x00, 0x00, 0x00, 0x58, // height
+    0x08, 0x02, 0x00, 0x00, // bit depth
+    0x00                    // colour type
+  };
+  writePngChunk(os, type, reinterpret_cast<char*>(data), length);
+
+  PngDataChunk chunk(is);
+
+  EXPECT_EQ(type, chunk.getType());
+}
+

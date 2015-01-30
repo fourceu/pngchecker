@@ -36,6 +36,7 @@ void PngChecker::verifyPng(DataType& data) {
 
   // Read all chunks, verifying length and checksum
   std::vector<PngDataChunk> chunks;
+  data.peek(); // Triggers EOF (WHY?! :( )
   while (!data.eof()) {
     chunks.push_back(PngDataChunk(data));
 
