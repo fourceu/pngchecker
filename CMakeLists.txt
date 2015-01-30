@@ -47,6 +47,7 @@ set(${PROJECT_NAME}_LIBS ${Boost_LIBRARIES})
 set(${PROJECT_NAME}_LIB_SRCS
   src/fourc/graphics/pngchecker/PngChecker.cxx
   src/fourc/graphics/pngchecker/PngCheckerException.cxx
+  src/fourc/graphics/pngchecker/PngChunkNames.cxx
   src/fourc/graphics/pngchecker/PngDataChunk.cxx
   src/fourc/graphics/pngchecker/PngHeaderChunk.cxx
 )

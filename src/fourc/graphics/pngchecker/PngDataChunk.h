@@ -38,6 +38,7 @@ public:
   virtual ~PngDataChunk() = default;
 
   virtual size_t getLength() const;
+  virtual std::string getType() const;
 
 protected:
   size_t length;

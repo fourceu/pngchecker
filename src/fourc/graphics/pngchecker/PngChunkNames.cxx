@@ -16,30 +16,16 @@
 // You should have received a copy of the GNU General Public License
 // along with PngChecker.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef FOURC_GRAPHICS_PNGCHECKER_PNGCHECKER_H_
-#define FOURC_GRAPHICS_PNGCHECKER_PNGCHECKER_H_
-
-#include "PngDataType.h"
-
-#include <vector>
+#include "PngChunkNames.h"
 
 namespace fourc {
 namespace graphics {
 namespace pngchecker {
 
-class PngDataChunk;
+const std::string PngChunkNames::IHDR = "IHDR";
+const std::string PngChunkNames::PLTE = "PLTE";
+const std::string PngChunkNames::IDAT = "IDAT";
+const std::string PngChunkNames::IEND = "IEND";
 
-class PngChecker {
-public:
-  PngChecker() = default;
-  virtual ~PngChecker() = default;
-
-  void verifyPng(DataType& data);
-  void verifyPng(const std::vector<char>& data);
-
-  const PngDataChunk* findChunk(std::vector<PngDataChunk>& chunks, const std::string& chunkName);
-};
 
 }}} // Namespaces
-
-#endif // FOURC_GRAPHICS_PNGCHECKER_PNGCHECKER_H_

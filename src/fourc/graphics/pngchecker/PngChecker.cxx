@@ -17,8 +17,11 @@
 // along with PngChecker.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <fourc/graphics/pngchecker/PngChecker.h>
+#include <fourc/graphics/pngchecker/PngCheckerException.h>
+
 #include "PngHeaderChunk.h"
 #include "PngDataChunk.h"
+#include "PngChunkNames.h"
 
 #include <sstream>
 #include <iostream>
@@ -33,13 +36,46 @@ void PngChecker::verifyPng(DataType& data) {
 
   // Read all chunks, verifying length and checksum
   std::vector<PngDataChunk> chunks;
-  while (data.eof()) {
+  while (!data.eof()) {
     chunks.push_back(PngDataChunk(data));
 
     data.peek(); // Triggers EOF (WHY?! :( )
   }
 
-  // TODO: Verify that all critical sections are present
+  // Verify that all critical sections are present
+
+  // IHDR
+  if (chunks.empty()) {
+    throw PngCheckerException("No data chunks found");
+  }
+  PngDataChunk ihdr = chunks.at(0);
+  if (ihdr.getType() != PngChunkNames::IHDR) {
+    throw PngCheckerException("First data chunk should have been type IHDR but was " + ihdr.getType());
+  }
+
+  // PLTE
+  // From Wikipedia: The PLTE chunk is essential for color type 3 (indexed color). It is optional for color types 2 and 6 (truecolor and truecolor with alpha)
+  // and it must not appear for color types 0 and 4 (grayscale and grayscale with alpha).
+
+  // TODO: Need to interpret IHDR chunk more to decide whether PLTE chunk should exist
+
+  // There should be at least one IDAT chunk
+  bool foundIDAT = false;
+  for (PngDataChunk idat : chunks) {
+    if (idat.getType() == PngChunkNames::IDAT) {
+      foundIDAT = true;
+      break;
+    }
+  }
+  if (!foundIDAT) {
+    throw PngCheckerException("No IDAT chunks found");
+  }
+
+  // IEND
+  PngDataChunk iend = chunks.at(chunks.size() -1);
+  if (iend.getType() != PngChunkNames::IEND) {
+    throw PngCheckerException("Last data chunk should have been type IEND but was " + iend.getType());
+  }
 }
 
 void PngChecker::verifyPng(const std::vector<char>& data) {

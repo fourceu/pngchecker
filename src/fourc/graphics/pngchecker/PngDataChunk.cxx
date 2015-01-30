@@ -47,6 +47,10 @@ size_t PngDataChunk::getLength() const {
   return length;
 }
 
+std::string PngDataChunk::getType() const {
+  return type;
+}
+
 uint32_t PngDataChunk::getChunkLength(DataType& data) const {
   uint32_t length = 0;
   data.read(reinterpret_cast<char*>(&length), sizeof(uint32_t));

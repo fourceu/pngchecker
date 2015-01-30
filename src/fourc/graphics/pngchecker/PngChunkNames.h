@@ -16,30 +16,32 @@
 // You should have received a copy of the GNU General Public License
 // along with PngChecker.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef FOURC_GRAPHICS_PNGCHECKER_PNGCHECKER_H_
-#define FOURC_GRAPHICS_PNGCHECKER_PNGCHECKER_H_
+#ifndef SRC_FOURC_GRAPHICS_PNGCHECKER_PNGCHUNKNAMES_H_
+#define SRC_FOURC_GRAPHICS_PNGCHECKER_PNGCHUNKNAMES_H_
 
-#include "PngDataType.h"
-
-#include <vector>
+#include <string>
 
 namespace fourc {
 namespace graphics {
 namespace pngchecker {
 
-class PngDataChunk;
-
-class PngChecker {
+/**
+ * \brief String constants for the names of the Png data chunks
+ * Chunk names are case-sensitive: the first letter of the chunk name denotes whether it is a critical chunk
+ * (upper case)(must be supported by decoders) or an ancillary chunk (lower case).
+ *
+ */
+class PngChunkNames {
 public:
-  PngChecker() = default;
-  virtual ~PngChecker() = default;
+  // Critical chunks
+  static const std::string IHDR;
+  static const std::string PLTE;
+  static const std::string IDAT;
+  static const std::string IEND;
 
-  void verifyPng(DataType& data);
-  void verifyPng(const std::vector<char>& data);
-
-  const PngDataChunk* findChunk(std::vector<PngDataChunk>& chunks, const std::string& chunkName);
+  // Ancillary chunks
 };
 
 }}} // Namespaces
 
-#endif // FOURC_GRAPHICS_PNGCHECKER_PNGCHECKER_H_
+#endif /* SRC_FOURC_GRAPHICS_PNGCHECKER_PNGCHUNKNAMES_H_ */
