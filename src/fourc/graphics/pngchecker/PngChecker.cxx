@@ -20,7 +20,8 @@
 #include "PngHeaderChunk.h"
 #include "PngDataChunk.h"
 
-#include <vector>
+#include <sstream>
+#include <iostream>
 
 namespace fourc {
 namespace graphics {
@@ -39,6 +40,18 @@ void PngChecker::verifyPng(DataType& data) {
   }
 
   // TODO: Verify that all critical sections are present
+}
+
+void PngChecker::verifyPng(const std::vector<char>& data) {
+  // Create a char buffer backed pair of in/out streams
+  std::stringbuf buf;
+  std::ostream os(&buf);
+  std::istream is(&buf);
+
+  // Write data to buffer
+  os << data.data();
+
+  verifyPng(is);
 }
 
 }}} // Namespaces

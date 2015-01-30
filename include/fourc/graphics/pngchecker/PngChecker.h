@@ -21,6 +21,8 @@
 
 #include "PngDataType.h"
 
+#include <vector>
+
 namespace fourc {
 namespace graphics {
 namespace pngchecker {
@@ -32,6 +34,7 @@ public:
   virtual ~PngChecker() = default;
 
   void verifyPng(DataType& data);
+  void verifyPng(const std::vector<char>& data);
 };
 
 }}} // Namespaces
