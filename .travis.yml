@@ -16,6 +16,9 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DBULD_SYSTEM_TESTS=on ..
 
-script: make -j $(getconf _NPROCESSORS_ONLN)
+script:
+  - make -j $(getconf _NPROCESSORS_ONLN)
+  - make test
+  - make systemtest
