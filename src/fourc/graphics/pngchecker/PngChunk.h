@@ -25,11 +25,17 @@ namespace fourc {
 namespace graphics {
 namespace pngchecker {
 
+/**
+ * \brief Abstract base class for all Png data chunks (including the initial header bytes)
+ */
 class PngChunk {
 public:
   PngChunk() = default;
   virtual ~PngChunk() = default;
 
+  /**
+   * Chunk length, either a constant according to the specification or a dynamic length read from the data.
+   */
   virtual uint32_t getLength() const = 0;
 };
 

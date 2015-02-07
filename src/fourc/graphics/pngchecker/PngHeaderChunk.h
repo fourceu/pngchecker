@@ -36,6 +36,7 @@ namespace pngchecker {
  * 1A  A byte that stops display of the file under DOS when the command type has been used—the end-of-file character
  * 0A  A Unix-style line ending (LF) to detect Unix-DOS line ending conversion.
  *
+ *\note Not to be confused with an IHDR data chunk
  */
 class PngHeaderChunk : public PngChunk {
 public:
@@ -45,6 +46,10 @@ public:
   PngHeaderChunk(DataType& data);
   virtual ~PngHeaderChunk() = default;
 
+  /**
+   * \brief Chunk length according to Png specification
+   * \see PngChunk::getLength() const
+   */
   virtual uint32_t getLength() const;
 };
 

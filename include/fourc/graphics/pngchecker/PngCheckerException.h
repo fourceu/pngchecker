@@ -25,6 +25,9 @@ namespace fourc {
 namespace graphics {
 namespace pngchecker {
 
+/**
+ * \brief Runtime exception type thrown by the PngChecker library
+ */
 class PngCheckerException : public std::runtime_error {
 public:
   PngCheckerException(const std::string& message);

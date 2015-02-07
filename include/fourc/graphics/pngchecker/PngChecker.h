@@ -34,9 +34,25 @@ public:
   PngChecker() = default;
   virtual ~PngChecker() = default;
 
+  /**
+   * \brief Reads and verifies Png data from a stream.
+   */
   void verifyPng(DataType& data);
+
+  /**
+   * \brief Convenience overload. Wraps the given vector in a stream and defers to stream overload.
+   *
+   * \throws PngCheckerException if any problems are found with the Png data stream.
+   *
+   */
   void verifyPng(const std::vector<char>& data);
 
+  /**
+   * \brief Locates a chunk of the given name in the list read from the data stream.
+   * Used internally but left with public accessibility in case it could be useful elsewhere.
+   *
+   * \note The pointer returned remains owned by the PngCheck instance. Do not modify.
+   */
   const PngDataChunk* findChunk(std::vector<PngDataChunk>& chunks, const std::string& chunkName);
 };
 

@@ -34,12 +34,28 @@ namespace pngchecker {
 class PngChunkNames {
 public:
   // Critical chunks
+  /**
+   * \brief Header chunk
+   */
   static const std::string IHDR;
+
+  /**
+   * \brief Pallette chunk
+   */
   static const std::string PLTE;
+
+  /**
+   * \brief Data chunk
+   */
   static const std::string IDAT;
+
+  /**
+   * \brief End chunk
+   */
   static const std::string IEND;
 
   // Ancillary chunks
+  // Currently not implemented
 };
 
 }}} // Namespaces

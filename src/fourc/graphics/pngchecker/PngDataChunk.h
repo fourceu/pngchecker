@@ -31,13 +31,23 @@ namespace pngchecker {
 
 /**
  * \brief Reads variable-length data chunks from a png data stream, also verifying stated an actual chunk CRC.
+ * A Png should contain at least one data chunk
  */
 class PngDataChunk : public PngChunk {
 public:
   PngDataChunk(DataType& data);
   virtual ~PngDataChunk() = default;
 
+  /**
+   * \brief Chunk length as read from the data stream
+   * \see PngChunk::getLength() const
+   */
   virtual uint32_t getLength() const;
+
+  /**
+   * \brief 4-character chunk type as read from the data stream.
+   *
+   */
   virtual std::string getType() const;
 
 protected:

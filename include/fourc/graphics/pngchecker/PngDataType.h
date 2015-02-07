@@ -25,6 +25,9 @@ namespace fourc {
 namespace graphics {
 namespace pngchecker {
 
+/**
+ * \brief Defines the data type used to provide a Png data stream to the checker.
+ */
 typedef std::istream DataType;
 
 }}} // Namespaces
