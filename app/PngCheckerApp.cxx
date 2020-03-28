@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
         checker.verifyPng(ifs);
 
         return 0;
-      } catch (PngCheckerException ex) {
+      } catch (const PngCheckerException& ex) {
         std::cout << ex.what() << std::endl;
         return 1;
       }
