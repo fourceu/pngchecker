@@ -1,4 +1,6 @@
-# pngchecker
+# pngchecker 
+[![Build Status](https://travis-ci.org/fourceu/pngchecker.svg?branch=master)](https://travis-ci.org/fourceu/pngchecker)
+
 C++ png data validation library
 
 This project is designed to give easy access to the following features:
