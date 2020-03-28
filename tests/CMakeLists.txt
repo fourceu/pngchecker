@@ -19,7 +19,7 @@
 IF (NOT CMAKE_CROSSCOMPILING)
 	if (BUILD_UNIT_TESTS OR BUILD_SYSTEM_TESTS)
 		enable_testing()
-    	add_subdirectory(gmock)
+    	add_subdirectory(googletest)
 	endif (BUILD_UNIT_TESTS OR BUILD_SYSTEM_TESTS)
 ENDIF (NOT CMAKE_CROSSCOMPILING)
 
